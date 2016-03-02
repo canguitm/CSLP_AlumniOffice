@@ -58,7 +58,7 @@
                                         echo $this->Form->input('mname', array('label' => 'Middle Name', 'disabled' => 'disabled', "class"=>"form-control"));
                                         echo $this->Form->input('lname', array('label' => 'Last Name', 'disabled' => 'disabled', "class"=>"form-control"));
                                         echo '<br>';
-                                        echo $this->Form->input('date_of_birth', array('label' => 'FDate of Birth', 'disabled' => 'disabled', "class"=>"form-control"));
+                                        echo $this->Form->input('date_of_birth', array('label' => 'Date of Birth', 'disabled' => 'disabled', "class"=>"form-control"));
                                         echo $this->Form->input('gender', array('label' => 'Gender', 'disabled' => 'disabled', "class"=>"form-control"));
                                         echo $this->Form->input('contact_number', array('label' => 'Contact Number', 'disabled' => 'disabled', "class"=>"form-control"));
                                         echo $this->Form->input('email', array('label' => 'Email', 'disabled' => 'disabled', "class"=>"form-control"));

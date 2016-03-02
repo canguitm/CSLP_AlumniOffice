@@ -21,38 +21,17 @@ class AlumniProfilesController extends AppController{
     }
 	
     public function index(){//Index
-
-        
-
         $this->loadModel('EducationalBackgrounds');
         $educationalbackgrounds = $this->EducationalBackgrounds->find('all');
         
-        // In a controller or table method
-         // In a controller or table method.
-     
-
         $this->loadModel('AlumniProfiles');
         $alumniprofile = $this->AlumniProfiles->find('all');
-        //$this->set(compact('alumniprofile'));
         $this->viewBuilder()->layout('mylayout');    
-        //$this->set('alumniprofile', $this->paginate()); 
-
-
-        $query = $this->AlumniProfiles
-            // Use the plugins 'search' custom finder and pass in the
-            // processed query params
+        
+         $query = $this->AlumniProfiles
         ->find('search', $this->AlumniProfiles->filterParams($this->request->query))
-            // You can add extra things to the query if you need to
-            //->contain(['Fname'])
         ->where(['fname IS NOT' => null]);
         $this->set('alumniprofile', $this->paginate($query));
-        //$this->set(compact('educationalbackground'));
-        //$this->set(compact('educationalbackgrounds'));
-
-
-
-
-      // $selected_value = $this->request->data['alumniprofile']['status'];
     }
 
     public function import(){//Import

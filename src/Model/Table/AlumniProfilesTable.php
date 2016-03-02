@@ -29,7 +29,7 @@ class AlumniProfilesTable extends Table
                 ->add('all', 'Search.Like', [
                     'before' => true,
                     'after' => true,
-                    'field' => [$this->aliasField('fname'), $this->aliasField('mname'), $this->aliasField('lname')]
+                    'field' => [$this->aliasField('fname'), $this->aliasField('mname'), $this->aliasField('lname'), $this->aliasField('email'), $this->aliasField('street_address'), $this->aliasField('city')]
                 ])
 
                 ->add('foo', 'Search.Callback', [
