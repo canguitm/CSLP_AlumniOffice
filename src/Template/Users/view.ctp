@@ -46,29 +46,61 @@
         <div id="page-wrapper">
             <div id="page-inner">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <!--Title and subtitle -->
-                        <h1 class="page-header">Add Profiles</h1>
+                        <h1 class="page-header">View Profile</h1>
                             <div class="row">
                                 <div class="panel-body table-responsive">
                                     <!-- Add Function-->
-                                    <?php
-                                        echo $this->Form->create($alumniprofile);
-                                        echo $this->Form->input('fname', array('label' => 'First Name', "class"=>"form-control"));
-                                        echo $this->Form->input('mname', array('label' => 'Middle Name', "class"=>"form-control"));
-                                        echo $this->Form->input('lname', array('label' => 'Last Name', "class"=>"form-control"));
-                                        echo $this->Form->input('gender', ["class"=>"form-control"]);
-                                        echo $this->Form->input('contact_number', ["class"=>"form-control"]);
-                                        echo $this->Form->input('email', ["class"=>"form-control"]);
-                                        echo $this->Form->input('street_address', ["class"=>"form-control"]);
-                                        echo $this->Form->input('city', ["class"=>"form-control"]);
-                                        echo $this->Form->input('province', ["class"=>"form-control"]);
-                                        echo $this->Form->input('country', ["class"=>"form-control"]);
-                                        echo $this->Form->input('zipcode', ["class"=>"form-control"]);
-                                        echo "<br>";
-                                        echo $this->Form->button(__('Add Profile'), ["class"=>"btn btn-info btn", "style"=> "background-color:#003B5F; border:0px; color:white;"]);
-                                        echo $this->Form->end();
-                                    ?>
+
+                                    <?= $this->Form->create($user) ?>
+                                    <fieldset>
+                                        <?php
+
+                                            //users table
+                                            echo '<h3 style="display:inline;">Basic Information</h3><br><br>';
+                                            echo $this->Form->input('username', array('label' => 'Username', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            
+                                            //alumniprofiles table
+                                            echo $this->Form->hidden('alumni_profiles.0.id');
+                                            echo $this->Form->input('alumni_profiles.0.fname', array('label' => 'First Name', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('alumni_profiles.0.mname', array('label' => 'Middle Name', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo '</table>';
+                                            echo $this->Form->input('alumni_profiles.0.lname', array('label' => 'Last Name', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo "<h5><strong>Date of Birth</strong></h5>";
+                                            echo $this->Form->date('alumni_profiles.0.date_of_birth', array('required' => true,'label' => 'Date of Birth', "class"=>"form-control", 'disabled' => 'disabled','dateFormat' => 'DMY', 'minYear' => date('Y') - 110, 'maxYear' => date('Y') - 0)). '<br><br>';
+                                            echo $this->Form->input('alumni_profiles.0.gender', array('label' => 'Gender', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('alumni_profiles.0.contact_number', array('label' => 'Contact Number', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('alumni_profiles.0.email', array('label' => 'Email', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('alumni_profiles.0.street_address', array('label' => 'Street Address', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('alumni_profiles.0.city',array('label' => 'City', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('alumni_profiles.0.province', array('label' => 'Province', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('alumni_profiles.0.country', array('label' => 'Country', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('alumni_profiles.0.zipcode', array('label' => 'Zipcode', "class"=>"form-control",'disabled' => 'disabled')). '<br><br><br>';
+
+
+                                            //educationalbackgrounds
+                                            echo '<h3 style="display:inline;">Educational Background</h3><br><br>';
+                                            echo $this->Form->hidden('educational_backgrounds.0.id');
+                                            echo "GS: 1, HS: 2, College: 3, Post Graduate: 4";
+                                            echo $this->Form->input('educational_backgrounds.0.academic_level_id', array('type'=>'select','options'=>$acad,'label' => 'Academic Levels', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('educational_backgrounds.0.program', array('label' => 'Program', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('educational_backgrounds.0.year_graduated', array('label' => 'Year Graduated', "class"=>"form-control",'style'=>'width:317px; height:34px;', 'disabled' => 'disabled')). '<br><br><br>';
+
+                                            //companydetails
+                                            echo '<h3 style="display:inline;">Company Details</h3><br><br>';
+                                            echo $this->Form->hidden('company_details.0.id');
+                                            echo $this->Form->input('company_details.0.company_name', array('label' => 'Company Name', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('company_details.0.company_street_address', array('label' => 'Company Street Address', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('company_details.0.company_city', array('label' => 'Company City', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('company_details.0.company_province', array('label' => 'Company Province', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('company_details.0.company_country', array('label' => 'Company Country', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('company_details.0.company_zipcode', array('label' => 'Company Zipcode', "class"=>"form-control",'disabled' => 'disabled')). '<br>';
+                                            echo $this->Form->input('company_details.0.company_contact_number', array('label' => 'Company Contact Number', "class"=>"form-control",'disabled' => 'disabled')). '<br><br>';
+
+                                        ?>
+                                    </fieldset>
+
                                 </div>
                             </div>
                         </div>
@@ -79,52 +111,8 @@
         <!--End of Content -->
         
 
-    </div>
+    
     <!--End of Whole wrapper -->
 
 
 
-
-
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="users view large-9 medium-8 columns content">
-    <h3><?= h($user->id) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th><?= __('Username') ?></th>
-            <td><?= h($user->username) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Password') ?></th>
-            <td><?= h($user->password) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Role') ?></th>
-            <td><?= h($user->role) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($user->id) ?></td>
-        </tr>   
-        <tr>
-            <th><?= __('Active Status') ?></th>
-            <td><?= $this->Number->format($user->active_status) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Created') ?></th>
-            <td><?= h($user->created) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Modified') ?></th>
-            <td><?= h($user->modified) ?></td>
-        </tr>
-    </table>
-</div>

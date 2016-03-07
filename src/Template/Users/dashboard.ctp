@@ -52,7 +52,7 @@
                             <div class="row">
                                 <div class="panel-body table-responsive">
                                     <!-- Dashboard Function-->
-                                     Welcome to the XU Alumni Office Profiling System. XU Alumni Profiling System has 5 major components: Import, Add, View, Edit and Delete profiles. These so called components are the basic features of the program that will help the admin store the data efficiently to the database. For the user access level, the application can be accessed by any user who has the administrative account credentials. To get started, please follow the instructions below:
+                                     Welcome to the XU Alumni Office Profiling System. XU Alumni Profiling System has 4 major components namely: Import, Add, View, and Edit profiles. These so called components are the basic features of the program that will help the admin store the data efficiently to the database. For the user access level, the application can be accessed by any user who has the administrative account credentials. To get started, please follow the instructions below:
                                     <br><br>
                                     <tr>
                                         <u>For adding data:</u><br>
@@ -66,12 +66,6 @@
                                         Locate PROFILES on the Navigation bar   and select the edit button   found on every data entered to the database . This functionality allows for editing of existing data for corrections.<br><br>
                                         <?php echo $this->Html->image('edit.png', array('alt' => 'CakePHP', 'width'=>'683', 'height'=>'384')); ?>
                                         
-                                    </tr>
-                                    <br><br>
-                                    <tr>
-                                        <u>For deleting data:</u><br>
-                                        Locate PROFILES on the Navigation bar   and select the delete button  found on every data entered to the database . This functionality allows the admin to delete data in the existing database . 
-
                                     </tr>
                                     <br><br>
                                     <tr>

@@ -69,32 +69,31 @@ if($_FILES){
             //skip first row of file for Name,Email,Mobile and Address
             if($i>1) {
                 
-                $uid = mysqli_insert_id($connection);
+                //Users Table
                 mysqli_query($connection, "INSERT INTO users (username) VALUES  ('".trim($data[0], '"')."' )  ");
                 
-                
-                mysqli_query($connection, "INSERT INTO alumni_profiles (lname, fname, mname, date_of_birth, gender, street_address, city, province, country, zipcode, contact_number, email ) VALUES 
-                    ('".trim($data[0], '"')."','".trim($data[1], '"')."','".trim($data[2], '"')."','".trim($data[3], '"')."','".trim($data[4], '"')."','".trim($data[5], '"').trim($data[6], '"')."','".trim($data[7], '"')."','".trim($data[8], '"')."','".trim($data[9], '"')."','".trim($data[10], '"')."','"."','".trim($data[11], '"')."' ) ");
-                
-                /*
+                //Alumni Profiles Table
                 $uid = mysqli_insert_id($connection);
-                //for second table address details
-                //, company_province, company_country, company_zipcode, company_contact_number
-                mysqli_query($connection, "INSERT INTO company_details (id, company_name, company_street_address, company_city, company_province, company_country, company_zipcode, company_contact_number) VALUES 
+                mysqli_query($connection, "INSERT INTO alumni_profiles (user_id, lname, fname, mname, date_of_birth, gender, street_address, city, province, country, zipcode, contact_number, email ) VALUES 
+                    ('".$uid."',   '".trim($data[0], '"')."',   '".trim($data[1], '"')."',     '".trim($data[2], '"')."',     '".trim($data[3], '"')."',     '".trim($data[4], '"')."',     '".trim($data[5], '"')."',     '".trim($data[6], '"')."',     '".trim($data[7], '"')."',     '".trim($data[8], '"')."',     '".trim($data[9], '"')."',     '".trim($data[10], '"')."',     '".trim($data[11], '"')."'  ) ");
+                
+                
+                //Company Details Table
+                mysqli_query($connection, "INSERT INTO company_details (user_id, company_name, company_street_address, company_city, company_province, company_country, company_zipcode, company_contact_number) VALUES 
                     ('".$uid."','".trim($data[12], '"')."','".trim($data[13], '"')."','".trim($data[14], '"')."','".trim($data[15], '"')."','".trim($data[16], '"')."','".trim($data[17], '"')."','".trim($data[18], '"')."' ) ");
                 
-                //third
-                mysqli_query($connection, "INSERT INTO educational_backgrounds (id, program, year_graduated) VALUES 
-                    ('".$uid."','".trim($data[19], '"')."','".trim($data[20], '"')."' ) ");
+                //Educational Backgrounds Table
+                mysqli_query($connection, "INSERT INTO educational_backgrounds (user_id, academic_level_id, program, year_graduated) VALUES 
+                    ('".$uid."',3, '".trim($data[19], '"')."','".trim($data[20], '"')."' ) ");
 
-                */
             }
             $i++;
         }
+         echo '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-success alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out; z-index: 1031; top: 70px; right: 20px;"><span data-notify="icon" class="pe-7s-gift"></span> <span data-notify="title"></span> <span data-notify="message"><b>Well done!  </b> You have successfully imported the file. </span><a href="#" target="_blank" data-notify="url"></a></div> ' ;
     }  
     
     else 
-        echo "no record";                        
+        echo '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-danger alert-with-icon animated fadeInDown" role="alert" data-notify-position="top-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out; z-index: 1031; top: 70px; right: 20px;"><span data-notify="icon" class="pe-7s-gift"></span> <span data-notify="title"></span> <span data-notify="message"><b>Oh Snap!  </b> Change a few things up and try submitting again. </span><a href="#" target="_blank" data-notify="url"></a></div> ' ;                      
 }
 ?>
 

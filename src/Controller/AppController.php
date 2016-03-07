@@ -47,7 +47,7 @@ class AppController extends Controller
             'authorize' => ['Controller'],
             'loginRedirect' => [
                 'controller' => 'Users',
-                'action' => 'profile'
+                'action' => 'dashboard'
             ],
             'logoutRedirect' => [
                 'controller' => 'Pages',
@@ -85,7 +85,7 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['index','profile', 'view', 'display']);
+        $this->Auth->allow(['index', 'register', 'profile', 'view', 'display']);
     }
 	
 }

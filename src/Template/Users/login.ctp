@@ -5,8 +5,8 @@
     <a class="navbar-brand" href="index.html"><?php echo $this->Html->image('xulogo_side.png', array('alt' => 'CakePHP', 'width'=>'216', 'height'=>'56.7')); ?></a>
     <?= $this->Flash->render('auth') ?>
     <?= $this->Form->create() ?>
-            <?= $this->Form->input('username', array('label'=>'', 'class'=>  'design', 'placeholder'=>'Username', 'require'=>'true')) ?>
-            <?= $this->Form->input('password', array('label'=>'', 'class'=>  'design', 'placeholder'=>'Password')) ?><br>
+            <?= $this->Form->input('username', array('required' => true,'label'=>'', 'class'=>  'design', 'placeholder'=>'Username', 'require'=>'true')) ?>
+            <?= $this->Form->input('password', array('required' => true,'label'=>'', 'class'=>  'design', 'placeholder'=>'Password')) ?><br>
     <?= $this->Form->button(__('Login'), ["class"=>"input_submit"]); ?>
     <?= $this->Form->end() ?>
 

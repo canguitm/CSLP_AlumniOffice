@@ -30,12 +30,6 @@ class UsersController extends AppController
         $this->Auth->allow(['register', 'logout']);
     }
 
-
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
     public function index()
     {
         if ($this->request->is('post')) {
@@ -54,102 +48,24 @@ class UsersController extends AppController
     public function profile()
     {
 
-        //$lol = $this->Users->get($id,[
-          //  'contain' => ["AlumniProfiles", "EducationalBackgrounds", "CompanyDetails"]
-        //]);
-        //debug($user->alumni_profiles[0]->fname);
-        //exit;
-
         $this->paginate =[
-            'contain'   => ["AlumniProfiles", "EducationalBackgrounds", "CompanyDetails"]   //with artists We also fetch pictures
+            'contain'   => ["AlumniProfiles", "EducationalBackgrounds", "CompanyDetails"],   //with artists We also fetch pictures
+             'sortWhitelist' => ['AlumniProfiles.lname', 'alumni_profiles.lname', 'lname', 'alumni_profiles.0.lname', 'Users.lname'],
         ];
         $this->set('users', $this->Paginator->paginate($this->Users));
-        //$this->set('users', $this->paginate($this->Users));
         $this->set('_serialize', ['users']);
 
-
-        //$users = $this->paginate($this->Users);
-
-        //$this->set('userdata',$user);
-        //$this->set(compact('users'));
-        //$this->set('_serialize', ['users']);
-
-        //$this->loadModel('AlumniProfiles');
-        //$alumniprofile = $this->AlumniProfiles->find('all');
-               $query = $this->Users
+        $this->loadModel('Users');
+        $query = $this->Users
         ->find('search', $this->Users->filterParams($this->request->query))
         ->where(['username IS NOT' => null]);
+
         $this->set('users', $this->paginate($query));
         $this->viewBuilder()->layout('mylayout'); 
 
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => []
-        ]);
-
-        $this->set('user', $user);
-        $this->set('_serialize', ['user']);
-        $this->viewBuilder()->layout('mylayout'); 
-
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $user = $this->Users->newEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data,['associated' => ["AlumniProfiles", "EducationalBackgrounds", "CompanyDetails"]]);
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
-            }
-        }
-
-        //Cities
-        $this->loadModel('Cities'); 
-        $this->set('data', $this->Cities->find('list', array(
-         
-            'field' => array('name'),
-            'order' => array('Cities.name'=>'ASC')
-        )));
-
-        //Acad Level
-        $this->loadModel('AcademicLevels'); 
-        $this->set('acad', $this->AcademicLevels->find('list', array(
-         
-            'field' => array('level'),
-            'order' => array('AcademicLevels.level'=>'ASC')
-        )));
-
-        $this->set(compact('user'));
-        $this->set('_serialize', ['user']);
-        $this->viewBuilder()->layout('mylayout'); 
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
     {
         $user = $this->Users->get($id, [
             'contain' => ["AlumniProfiles", "EducationalBackgrounds", "CompanyDetails"]
@@ -193,23 +109,94 @@ class UsersController extends AppController
 
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
+    public function add()
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
-        } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->request->data,['associated' => ["AcademicLevels","AlumniProfiles", "EducationalBackgrounds", "CompanyDetails"]]);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+                return $this->redirect(['action' => 'profile']);
+            } else {
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
         }
-        return $this->redirect(['action' => 'index']);
+
+        //Cities
+        $this->loadModel('Cities'); 
+        $this->set('data', $this->Cities->find('list', array(
+         
+            'field' => array('name'),
+            'order' => array('Cities.name'=>'ASC')
+        )));
+
+        //Acad Level
+        $this->loadModel('AcademicLevels'); 
+        $this->set('acad', $this->AcademicLevels->find('list', array(
+         
+            'field' => array('level'),
+            'order' => array('AcademicLevels.id'=>'ASC')
+        )));
+
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
+        $this->viewBuilder()->layout('mylayout'); 
+    }
+
+    public function edit($id = null)
+    {
+        $user = $this->Users->get($id, [
+            'contain' => ["AlumniProfiles", "EducationalBackgrounds", "CompanyDetails"]
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->data,['associated' => ["AlumniProfiles", "EducationalBackgrounds", "CompanyDetails"]]);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+                return $this->redirect(['action' => 'profile']);
+            } else {
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
+        }
+
+        //Cities
+        $this->loadModel('Cities'); 
+        $this->set('data', $this->Cities->find('list', array(
+         
+            'field' => array('name'),
+            'order' => array('Cities.name'=>'ASC')
+        )));
+
+        //Acad Level
+        $this->loadModel('AcademicLevels'); 
+        $this->set('acad', $this->AcademicLevels->find('list', array(
+         
+            'field' => array('level'),
+            'order' => array('AcademicLevels.level'=>'ASC')
+        )));
+
+        $this->loadModel('AlumniProfiles');
+        $alumniprofile = $this->AlumniProfiles->find('all');
+
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
+        $this->viewBuilder()->layout('mylayout'); 
+
+        $this->set(compact('alumniprofile'));
+        $this->set('_serialize', ['alumniprofile']);
+    }
+
+    public function login()
+    {
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            } 
+            $this->Flash->error(__('Invalid username or password, try again'));
+        }
+
+        $this->viewBuilder()->layout('mylayout_login');
     }
 
     public function logout()

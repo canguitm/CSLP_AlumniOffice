@@ -4,7 +4,7 @@
         
 
 
-    <!--Start of Top Navigation-->
+        <!--Start of Top Navigation-->
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <!--Xavier Logo-->
             <div class="navbar-header">
@@ -24,7 +24,7 @@
 
 
 
-    <!--Start of Side Navigation  -->
+        <!--Start of Side Navigation  -->
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
@@ -41,7 +41,7 @@
         <!--End of Side Navigation  -->
         
 
- <!--Start of Content -->      
+        <!--Start of Content -->      
         <div id="page-wrapper">
             <div id="page-inner">
                 <div class="row">
@@ -51,18 +51,12 @@
                         <div class="row">    
                           
 
-  <div class="col-lg-4">
-
-
-<?php echo $this->Form->create();?>
-      <div class="input-group">
-      
-      <?php  echo $this->Form->input('all', array('label'=>'', 'type'=>  'text', 'class'=>'form-control', 'placeholder'=>'Search for...'));?>
-      <span class="input-group-btn">
-        <?php   echo $this->Form->button('<i class="fa fa-search"></i>',  array('label' => 'First Name', "class"=>"btn btn-default", 'type'=>'submit'));?>
-        <?php echo $this->Html->link('Reset', ['action' => 'index']);
-
-    echo $this->Form->end();?>
+    <div class="col-lg-4">
+        <?php echo $this->Form->create();?>
+        <div class="input-group">
+            <?php  echo $this->Form->input('all', array('label'=>'', 'type'=>  'text', 'class'=>'form-control', 'placeholder'=>'Search for lastname..'));?>
+            <span class="input-group-btn">
+            <?php   echo $this->Form->button('<i class="fa fa-search"></i>',  array('label' => 'First Name', "class"=>"btn btn-default", 'type'=>'submit'));?>echo $this->Form->end();?>
       </span>
   </div>
 
@@ -74,17 +68,17 @@
                                 <div class="panel-body table-responsive">
                                     
     <table class="table table-hover">
-<?= $this->Html->link('<i class="fa fa-plus"></i>', ['action' => 'add'], array ('escape' => false)) ?>
+    <div align="right"><?= $this->Html->link('<i class="fa fa-plus"></i>', ['action' => 'add'], array ('escape' => false)) ?></div>
                                         <thead>
                                         <tr>
-                                            <th><strong><?= $this->Paginator->sort('fname', array('label' => 'First Name')) ?></strong></th>
-                                            <th><strong><?= $this->Paginator->sort('mname', array('label' => 'Middle Name'))?></strong></th>
-                                            <th><strong><?= $this->Paginator->sort('lname', array('label' => 'Last Name'))?></strong></th>
-                                            <th><strong><?= $this->Paginator->sort('contact_number') ?></strong></th>
-                                            <th><strong><?= $this->Paginator->sort('email') ?></strong></th>
-                                            <th><strong><?= $this->Paginator->sort('program') ?></strong></th>
-                                            <th><strong><?= $this->Paginator->sort('year_graduated') ?></strong></th>
-                                            <th><strong><?= __('Actions') ?></strong></th>
+                                            <th><strong>First Name</strong></th>
+                                            <th><strong>Middle Name</strong></th>
+                                            <th><strong>Last Name</strong></th>
+                                            <th><strong>Contact Number</strong></th>
+                                            <th><strong>Email</strong></th>
+                                            <th><strong>Program</strong></th>
+                                            <th><strong>Year Graduated</strong></th>
+                                            <th><strong><?= __('Action') ?></strong></th>
                                             
                                         </tr>
                                     </thead>
@@ -120,13 +114,12 @@
 
 
 
-    <div class="paginator">
+    <div align ="right", class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->prev('< ' . __('previous')) ?>
             <?= $this->Paginator->numbers() ?>
             <?= $this->Paginator->next(__('next') . ' >') ?>
         </ul>
-        <p><?= $this->Paginator->counter() ?></p>
     </div>
 </div>
 
